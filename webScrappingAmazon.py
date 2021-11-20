@@ -5,10 +5,12 @@ import requests
 import pandas as pd
 from multiprocessing import Pool
 from bs4 import BeautifulSoup
+from pathlib import Path
 
 now = datetime.now()
 dt_string = now.strftime("%d_%m_%Y_%H_%M")
-os.mkdir(dt_string)
+if not Path(dt_string).is_dir():
+    os.mkdir(dt_string)
 os.chdir(dt_string)
 
 
@@ -122,5 +124,6 @@ if __name__ == '__main__':
                    ('Tshirts', 2),
                    ('Pajama', 1),
                    ('Pajama', 2)]
-    with Pool(4) as p:
-        print(p.map(collect_reviews, query_terms))
+    #with Pool(4) as p:
+    #    print(p.map(collect_reviews, query_terms))
+    collect_reviews(query_terms[0])
